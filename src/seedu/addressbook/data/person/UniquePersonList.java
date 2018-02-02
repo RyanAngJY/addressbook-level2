@@ -82,7 +82,10 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     // ================================================================================
-    public List<ReadOnlyPerson> mutableListView() {
+    /**
+     * Returns a List view
+     */
+    public List<Person> mutableListView() {
         return internalList;
     }
     // ================================================================================

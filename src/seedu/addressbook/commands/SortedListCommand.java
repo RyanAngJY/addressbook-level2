@@ -1,6 +1,7 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,11 +23,8 @@ public class SortedListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().mutableListView();
-        // List<String> stringListAllPersons = convertToStringList(allPersons);
-        allPersons.sort((person1, person2) -> person1.getName().compareToIgnoreCase(person2.getName()));
-
-        // need to alter this
+        List<Person> allPersons = addressBook.getAllPersons().mutableListView();
+        Collections.sort(allPersons);
         return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
     }
 
