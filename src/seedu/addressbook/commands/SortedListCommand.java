@@ -28,14 +28,14 @@ public class SortedListCommand extends Command {
         return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
     }
 
-    /**
-     * Converts List<ReadOnlyPerson> into ArrayList<String>
-     */
-    public ArrayList<String> convertToStringList (List<ReadOnlyPerson> allPersons) {
-        ArrayList<String> stringListAllPersons = new ArrayList<String>();
-        for (ReadOnlyPerson person : allPersons) {
-            stringListAllPersons.add(person.toString());
-        }
-        return stringListAllPersons;
-    }
+//    /**
+//     * Converts List<ReadOnlyPerson> into ArrayList<String>
+//     */
+//    public ArrayList<String> convertToStringList (List<ReadOnlyPerson> allPersons) {
+//        ArrayList<String> stringListAllPersons = new ArrayList<String>();
+//        for (ReadOnlyPerson person : allPersons) {
+//            stringListAllPersons.add(person.toString());
+//        }
+//        return stringListAllPersons;
+//    }
 }
