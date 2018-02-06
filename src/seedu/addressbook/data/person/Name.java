@@ -43,6 +43,12 @@ public class Name implements Comparable<Name>{
         return Arrays.asList(fullName.split("\\s+"));
     }
 
+    // ==================================================================
+    public List<String> getWordsInNameLowerCase() {
+        return Arrays.asList(fullName.toLowerCase().split("\\s+"));
+    }
+    // ==================================================================
+
     @Override
     public String toString() {
         return fullName;

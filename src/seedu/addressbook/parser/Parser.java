@@ -240,10 +240,18 @@ public class Parser {
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final String[] keywordsTemp = matcher.group("keywords").split("\\s+");
+        final String[] keywords = setKeywordsToLowerCase(keywordsTemp);
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
 
-
+// ======================================================================================
+    private String[] setKeywordsToLowerCase(String[] keywords) {
+        for (int i = 0; i < keywords.length; i++) {
+            keywords[i] = keywords[i].toLowerCase();
+        }
+        return keywords;
+    }
+    // ======================================================================================
 }
