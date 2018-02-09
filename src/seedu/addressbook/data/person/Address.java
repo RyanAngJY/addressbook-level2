@@ -2,6 +2,8 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+import java.util.ArrayList;
+
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
@@ -15,6 +17,11 @@ public class Address {
     public final String value;
     private boolean isPrivate;
 
+    public Block block;
+    public Street street;
+    public Unit unit;
+    public PostalCode postalCode;
+
     /**
      * Validates given address.
      *
@@ -26,7 +33,15 @@ public class Address {
         if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = trimmedAddress;
+
+        ArrayList<String> addressData = splitIntoAddressData(trimmedAddress);
+        block = new Block(addressData.get(0));
+        street = new Street(addressData.get(1));
+        unit = new Unit(addressData.get(2));
+        postalCode = new PostalCode(addressData.get(3));
+
+        this.value = block.getBlock() + ", " + street.getStreet() + ", " + unit.getUnit() + ", " + postalCode.getPostalCode();
+//        this.value = trimmedAddress;
     }
 
     /**
@@ -34,6 +49,21 @@ public class Address {
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
+    }
+
+    public static ArrayList<String> splitIntoAddressData(String rawAddress) {
+        ArrayList<String> addressData = new ArrayList<String>();
+        int j = 0;
+        int indexOfComma = rawAddress.indexOf(',');
+        while (indexOfComma != -1) {
+            addressData.add(rawAddress.substring(0, indexOfComma));
+            j = indexOfComma + 2;
+            rawAddress = rawAddress.substring(j);
+            indexOfComma = rawAddress.indexOf(',');
+        }
+        addressData.add(rawAddress);
+
+        return addressData;
     }
 
     @Override
