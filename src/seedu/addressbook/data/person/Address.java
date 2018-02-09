@@ -34,14 +34,10 @@ public class Address {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
 
-        ArrayList<String> addressData = splitIntoAddressData(trimmedAddress);
-        block = new Block(addressData.get(0));
-        street = new Street(addressData.get(1));
-        unit = new Unit(addressData.get(2));
-        postalCode = new PostalCode(addressData.get(3));
+        this.value = trimmedAddress;
 
-        this.value = block.getBlock() + ", " + street.getStreet() + ", " + unit.getUnit() + ", " + postalCode.getPostalCode();
-//        this.value = trimmedAddress;
+        ArrayList<String> addressData = splitIntoAddressData(trimmedAddress);
+        initAddressProperties(addressData);
     }
 
     /**
@@ -51,6 +47,9 @@ public class Address {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns an ArrayList of the respective data from an Address
+     */
     public static ArrayList<String> splitIntoAddressData(String rawAddress) {
         ArrayList<String> addressData = new ArrayList<String>();
         int j = 0;
@@ -64,6 +63,31 @@ public class Address {
         addressData.add(rawAddress);
 
         return addressData;
+    }
+
+    /**
+     * Stores the address data in its respective object attributes
+     */
+    public void initAddressProperties(ArrayList<String> addressData) {
+        for (int i = 0; i < addressData.size(); i++) {
+            String currAddressData = addressData.get(i);
+            switch (i) {
+            case 0:
+                block = new Block(currAddressData);
+                break;
+            case 1:
+                street = new Street(currAddressData);
+                break;
+            case 2:
+                unit = new Unit(currAddressData);
+                break;
+            case 3:
+                postalCode = new PostalCode(currAddressData);
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     @Override
